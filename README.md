@@ -1,5 +1,3 @@
----
-
 ````markdown
 # 📘 API de Gestão de Empréstimos
 
