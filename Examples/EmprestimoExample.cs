@@ -11,6 +11,6 @@ public class EmprestimoExample : IExamplesProvider<Emprestimo>
         Valor = 15000,
         PrazoMeses = 36,
         TaxaJurosMensal = 1.2,
-        DataContrato = DateTime.UtcNow
+        DataContrato = DateTime.UtcNow        
     };
 }

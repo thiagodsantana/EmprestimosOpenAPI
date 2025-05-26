@@ -2,13 +2,13 @@
 
 namespace EmprestimosOpenAPI.Services;
 
-public class EmprestimoServiceV2 : IEmprestimoService
+public class EmprestimoServiceV2 : IEmprestimoServiceV2
 {
-    private static readonly List<Emprestimo> emprestimos = [];
+    private static readonly List<EmprestimoV2> emprestimos = [];
 
     private const decimal JurosMensal = 0.01m;
 
-    public Emprestimo Criar(Emprestimo emprestimo)
+    public EmprestimoV2 Criar(EmprestimoV2 emprestimo)
     {
         emprestimo.Id = Guid.NewGuid();
         emprestimo.DataContrato = DateTime.UtcNow;
@@ -19,11 +19,11 @@ public class EmprestimoServiceV2 : IEmprestimoService
         return emprestimo;
     }
 
-    public List<Emprestimo> ListarTodos() => emprestimos;
+    public List<EmprestimoV2> ListarTodos() => emprestimos;
 
-    public Emprestimo? ObterPorId(Guid id) => emprestimos.FirstOrDefault(e => e.Id == id);
+    public EmprestimoV2? ObterPorId(Guid id) => emprestimos.FirstOrDefault(e => e.Id == id);
 
-    public Emprestimo? Atualizar(Guid id, Emprestimo novo)
+    public EmprestimoV2? Atualizar(Guid id, EmprestimoV2 novo)
     {
         var index = emprestimos.FindIndex(e => e.Id == id);
         if (index == -1) return null;
@@ -35,7 +35,7 @@ public class EmprestimoServiceV2 : IEmprestimoService
         return novo;
     }
 
-    public Emprestimo? AtualizarParcial(Guid id, AtualizacaoEmprestimoDto patch)
+    public EmprestimoV2? AtualizarParcial(Guid id, AtualizacaoEmprestimoDto patch)
     {
         var emprestimo = emprestimos.FirstOrDefault(e => e.Id == id);
         if (emprestimo is null) return null;
@@ -59,6 +59,8 @@ public class EmprestimoServiceV2 : IEmprestimoService
         return true;
     }
 
-    private decimal CalcularTotalComJuros(decimal valor, int prazoMeses)
-        => Math.Round(valor * (decimal)Math.Pow(1 + (double)JurosMensal, prazoMeses), 2);
+    private static decimal CalcularTotalComJuros(decimal valor, int prazoMeses)
+    {
+        return Math.Round(valor * (decimal)Math.Pow(1 + (double)JurosMensal, prazoMeses), 2);
+    }
 }
