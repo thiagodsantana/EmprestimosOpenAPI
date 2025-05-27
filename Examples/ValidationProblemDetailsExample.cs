@@ -13,8 +13,8 @@ public class ValidationProblemDetailsExample : IExamplesProvider<ValidationProbl
             Status = 400,
             Errors = new Dictionary<string, string[]>
             {
-                ["Cliente"] = new[] { "O campo Cliente é obrigatório." },
-                ["Valor"] = new[] { "O valor deve ser entre 100 e 100000." }
+                ["Cliente"] = ["O campo Cliente é obrigatório."],
+                ["Valor"] = ["O valor deve ser entre 100 e 100000."]
             }
         };
     }

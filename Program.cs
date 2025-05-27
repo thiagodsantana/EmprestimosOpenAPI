@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Globalization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +51,11 @@ builder.Services.AddSwaggerGen(options =>
         if (string.IsNullOrEmpty(apiDesc.GroupName)) return false;
         return apiDesc.GroupName.Equals(docName, StringComparison.OrdinalIgnoreCase);
     });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), includeControllerXmlComments: true);
 });
+
 
 // Registra classes de exemplos para Swagger UI
 builder.Services.AddSwaggerExamplesFromAssemblyOf<EmprestimoExample>();
@@ -82,8 +87,8 @@ app.UseSwaggerUI(opt =>
     opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Empréstimos API V1");
     opt.SwaggerEndpoint("/swagger/v2/swagger.json", "Empréstimos API V2");
     opt.DocumentTitle = "Documentação da API de Empréstimos";
-    opt.InjectStylesheet("/swagger-ui/custom.css"); // Se quiser customizar o estilo visual
-    opt.RoutePrefix = string.Empty; // Swagger UI na raiz: http://localhost:5000/
+    opt.InjectStylesheet("custom.css"); // Se quiser customizar o estilo visual
+    opt.RoutePrefix = string.Empty; // Swagger UI na raiz
 });
 
 // Habilita arquivos estáticos (necessário para custom.css, por exemplo)

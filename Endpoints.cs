@@ -12,12 +12,16 @@ namespace EmprestimosOpenAPI;
 public static class Endpoints
 {
     /// <summary>
-    /// Mapeia os endpoints da API v1 no grupo fornecido.
+    /// Mapeia os endpoints da versão 1 da API de Empréstimos.
+    /// Permite operações CRUD básicas: criação, listagem, consulta, atualização e remoção.
     /// </summary>
+    /// <param name="group">Grupo de rotas base para a API.</param>
+    /// <returns>Grupo de rotas configurado.</returns>
     public static RouteGroupBuilder MapEndpoints(this RouteGroupBuilder group)
     {
-        // 🔹 POST /emprestimos
-        // Cria um novo empréstimo com os dados fornecidos.
+        /// <summary>
+        /// Cria um novo empréstimo com os dados fornecidos.
+        /// </summary>
         group.MapPost("/emprestimos", ([FromServices] EmprestimoService service, Emprestimo emprestimo) =>
         {
             var criado = service.Criar(emprestimo);
@@ -25,13 +29,14 @@ public static class Endpoints
         })
         .WithTags("Empréstimos")
         .WithSummary("Cria um novo empréstimo")
-        .Produces<Emprestimo>(201) // Retorna o empréstimo criado
-        .Produces<ValidationProblemDetails>(400) // Dados inválidos
-        .Produces<ProblemDetails>(500) // Erro interno
+        .Produces<Emprestimo>(201)
+        .Produces<ValidationProblemDetails>(400)
+        .Produces<ProblemDetails>(500)
         .WithOpenApi();
 
-        // 🔹 GET /emprestimos
-        // Lista todos os empréstimos cadastrados.
+        /// <summary>
+        /// Retorna a lista de todos os empréstimos cadastrados.
+        /// </summary>
         group.MapGet("/emprestimos", ([FromServices] EmprestimoService service) =>
         {
             var lista = service.ListarTodos();
@@ -42,8 +47,9 @@ public static class Endpoints
         .Produces<List<Emprestimo>>(200)
         .WithOpenApi();
 
-        // 🔹 GET /emprestimos/{id}
-        // Consulta um empréstimo específico pelo ID (GUID).
+        /// <summary>
+        /// Consulta um empréstimo específico pelo identificador único (GUID).
+        /// </summary>
         group.MapGet("/emprestimos/{id:guid}", ([FromServices] EmprestimoService service, Guid id) =>
         {
             var item = service.ObterPorId(id);
@@ -55,8 +61,9 @@ public static class Endpoints
         .Produces(404)
         .WithOpenApi();
 
-        // 🔹 PUT /emprestimos/{id}
-        // Atualiza todos os dados de um empréstimo existente.
+        /// <summary>
+        /// Atualiza completamente os dados de um empréstimo existente.
+        /// </summary>
         group.MapPut("/emprestimos/{id:guid}", ([FromServices] EmprestimoService service, Guid id, Emprestimo novo) =>
         {
             var atualizado = service.Atualizar(id, novo);
@@ -68,8 +75,9 @@ public static class Endpoints
         .Produces(404)
         .WithOpenApi();
 
-        // 🔹 PATCH /emprestimos/{id}
-        // Atualiza parcialmente um empréstimo (por exemplo, alterar apenas o valor ou prazo).
+        /// <summary>
+        /// Atualiza parcialmente os dados de um empréstimo (por exemplo, valor ou prazo).
+        /// </summary>
         group.MapPatch("/emprestimos/{id:guid}", ([FromServices] EmprestimoService service, Guid id, AtualizacaoEmprestimoDto patch) =>
         {
             var atualizado = service.AtualizarParcial(id, patch);
@@ -81,8 +89,9 @@ public static class Endpoints
         .Produces(404)
         .WithOpenApi();
 
-        // 🔹 DELETE /emprestimos/{id}
-        // Remove um empréstimo da base de dados.
+        /// <summary>
+        /// Remove um empréstimo do sistema com base no seu identificador único.
+        /// </summary>
         group.MapDelete("/emprestimos/{id:guid}", ([FromServices] EmprestimoService service, Guid id) =>
         {
             var sucesso = service.Remover(id);
