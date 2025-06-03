@@ -1,11 +1,10 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EmprestimosOpenAPI.Models;
 
 /// <summary>
-/// Representa os dados utilizados para atualização parcial de um empréstimo.
-/// Utilizada em operações PATCH.
+/// Representa os dados permitidos para atualização parcial de um empréstimo.
+/// Utilizada nas operações HTTP PATCH.
 /// </summary>
 public class AtualizacaoEmprestimoDto
 {
@@ -13,17 +12,15 @@ public class AtualizacaoEmprestimoDto
     /// Novo valor solicitado para o empréstimo.
     /// Deve estar entre R$100 e R$100.000.
     /// </summary>
-    [Required(ErrorMessage = "O valor é obrigatório.")]
-    [SwaggerSchema(Description = "Valor do Empréstimo")]
-    [Range(100, 100000, ErrorMessage = "O valor do empréstimo deve ser entre 100 e 100000")]
+    [Required(ErrorMessage = "O valor do empréstimo é obrigatório.")]
+    [Range(100, 100000, ErrorMessage = "O valor deve estar entre R$100 e R$100.000.")]
     public decimal? Valor { get; set; }
 
     /// <summary>
-    /// Novo prazo de pagamento em meses.
+    /// Novo prazo para pagamento em meses.
     /// Deve estar entre 2 e 120 meses.
     /// </summary>
-    [Required(ErrorMessage = "O prazo em meses é obrigatório.")]
-    [SwaggerSchema(Description = "Prazo em meses")]
-    [Range(2, 120, ErrorMessage = "O prazo em meses do empréstimo deve ser entre 2 e 120")]
+    [Required(ErrorMessage = "O prazo é obrigatório.")]
+    [Range(2, 120, ErrorMessage = "O prazo deve estar entre 2 e 120 meses.")]
     public int? PrazoMeses { get; set; }
 }

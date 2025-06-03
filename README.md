@@ -8,10 +8,9 @@ Esta API permite o gerenciamento de contratos de empréstimos, com suporte a ver
 ## 🚀 Tecnologias Utilizadas
 
 - ASP.NET Core 8 (Minimal API)
-- Swagger / OpenAPI (Swashbuckle)
+- Swagger / OpenAPI
 - Localization (pt-BR)
 - FluentValidation / DataAnnotations
-- Swashbuckle.AspNetCore.Filters (Exemplos no Swagger)
 
 ---
 
@@ -146,13 +145,6 @@ Para APIs públicas, o projeto pode ser facilmente estendido com:
 3. Commit suas alterações (`git commit -m 'Adiciona nova feature'`)
 4. Push para a branch (`git push origin feature/minha-feature`)
 5. Abra um Pull Request
-
----
-
-## 📞 Suporte
-
-Entre em contato pelo e-mail:
-📨 **[suporte@emprestimos.com](mailto:suporte@emprestimos.com)**
 
 ---
 
