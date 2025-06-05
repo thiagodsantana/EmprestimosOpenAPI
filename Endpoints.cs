@@ -9,6 +9,7 @@ namespace EmprestimosOpenAPI
     /// Define os endpoints da versão 1 (v1) da API de Empréstimos.
     /// Esta versão fornece operações básicas para gerenciamento de empréstimos.
     /// </summary>
+    [ApiExplorerSettings(GroupName = "v1")]
     public static class Endpoints
     {
         /// <summary>
@@ -36,7 +37,8 @@ namespace EmprestimosOpenAPI
             .Produces<Emprestimo>(201, "application/json")
             .Produces<ValidationProblemDetails>(400, "application/problem+json")
             .Produces<ProblemDetails>(500, "application/problem+json")
-            .WithOpenApi();
+            .WithOpenApi()
+            .WithGroupName("v1");
 
             /// <summary>
             /// Lista todos os empréstimos cadastrados.
@@ -53,7 +55,7 @@ namespace EmprestimosOpenAPI
             .WithSummary("Lista todos os empréstimos")
             .WithDescription("Retorna a lista completa de empréstimos cadastrados no sistema.")
             .Produces<List<Emprestimo>>(200, "application/json")
-            .WithOpenApi();
+            .WithOpenApi().WithGroupName("v1");
 
             /// <summary>
             /// Consulta um empréstimo pelo seu identificador único (GUID).
@@ -72,7 +74,8 @@ namespace EmprestimosOpenAPI
             .WithDescription("Retorna um empréstimo específico identificado pelo GUID.")
             .Produces<Emprestimo>(200, "application/json")
             .Produces(404)
-            .WithOpenApi();
+            .WithOpenApi()
+            .WithGroupName("v1");
 
             /// <summary>
             /// Atualiza completamente os dados de um empréstimo existente.
@@ -92,7 +95,8 @@ namespace EmprestimosOpenAPI
             .WithDescription("Atualiza completamente os dados de um empréstimo existente.")
             .Produces<Emprestimo>(200, "application/json")
             .Produces(404)
-            .WithOpenApi();
+            .WithOpenApi()
+            .WithGroupName("v1");
 
             /// <summary>
             /// Atualiza parcialmente os dados de um empréstimo.
@@ -112,7 +116,8 @@ namespace EmprestimosOpenAPI
             .WithDescription("Atualiza parcialmente os dados de um empréstimo, como valor ou prazo.")
             .Produces<Emprestimo>(200, "application/json")
             .Produces(404)
-            .WithOpenApi();
+            .WithOpenApi()
+            .WithGroupName("v1");
 
             /// <summary>
             /// Remove um empréstimo do sistema pelo seu identificador único.
@@ -131,7 +136,8 @@ namespace EmprestimosOpenAPI
             .WithDescription("Remove um empréstimo do sistema pelo seu identificador único.")
             .Produces(204)
             .Produces(404)
-            .WithOpenApi();
+            .WithOpenApi()
+            .WithGroupName("v1");
 
             return group;
         }
